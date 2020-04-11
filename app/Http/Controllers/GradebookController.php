@@ -14,7 +14,15 @@ class GradebookController extends Controller
      */
     public function index()
     {
-        return Gradebook::with('professor')->get();
+        $term = request()->input('term');
+
+        if ($term) {
+
+            return Gradebook::search($term);
+        } else {
+
+            return Gradebook::with('professor')->get();
+        }
     }
 
     /**

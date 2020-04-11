@@ -13,4 +13,8 @@ class Gradebook extends Model
         
         return $this->belongsTo(Professor::class);
     }
+    public static function search($term){
+
+        return self::with('professor')->where('name', 'LIKE', '%'.$term.'%')->get();
+    }
 }
