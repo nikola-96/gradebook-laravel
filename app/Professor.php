@@ -13,4 +13,10 @@ class Professor extends Model
         return $this->hasOne(Gradebook::class);
     }
 
+    public static function search($term){
+
+        return self::with('gradebook')->where('name', 'LIKE', '%'.$term.'%')->get();
+    }
+
+
 }

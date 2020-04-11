@@ -17,3 +17,5 @@ Route::middleware('api')->post('/register', 'AuthController@register');
 
 Route::middleware('api')->post('/login', 'AuthController@login');
 Route::middleware('api')->get('/gradebooks', 'GradebookController@index');
+Route::middleware('api')->get('/professors', 'ProfessorController@index');
+
