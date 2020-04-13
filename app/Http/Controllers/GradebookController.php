@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Gradebook;
+use App\Professor;
 
 class GradebookController extends Controller
 {
@@ -22,6 +23,7 @@ class GradebookController extends Controller
         } else {
 
             return Gradebook::with('professor')->get();
+
         }
     }
 
@@ -32,7 +34,7 @@ class GradebookController extends Controller
      */
     public function create()
     {
-        //
+        return Professor::whereNull('gradebook_id')->get();
     }
 
     /**
@@ -43,7 +45,20 @@ class GradebookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (!$request->has('name')) {
+            abort(400);
+        }
+        $gradebook = new Gradebook();
+        $professor = Professor::find($request->input('professor_id'));
+
+        $gradebook->name = $request->input('name');
+        $gradebook->professor_id = $request->input('professor_id');
+        
+        $gradebook->save();
+        $professor->gradebook_id = $gradebook->id;
+        $professor->save();
+
+        return $gradebook;
     }
 
     /**
@@ -54,7 +69,6 @@ class GradebookController extends Controller
      */
     public function show($id)
     {
-        //
     }
 
     /**

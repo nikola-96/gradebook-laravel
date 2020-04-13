@@ -55,7 +55,7 @@ class ProfessorController extends Controller
      */
     public function show($id)
     {
-        //
+        return Professor::with('students', 'gradebook')->findOrFail($id);
     }
 
     /**
