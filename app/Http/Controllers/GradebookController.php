@@ -79,7 +79,19 @@ class GradebookController extends Controller
      */
     public function show($id)
     {
+        $gradebook = Gradebook::with('professor', 'students')->findOrFail($id);
+        $user = JWTAuth::user();
+        
+        if($gradebook->professor){
+            if($gradebook->professor->user_id == $user->id){
+                $gradebook->isAuth = true;
 
+                return $gradebook;
+            }
+        }
+                $gradebook->isAuth = false;
+                
+            return $gradebook;
     }
 
     /**
