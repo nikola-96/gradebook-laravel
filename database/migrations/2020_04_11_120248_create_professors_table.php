@@ -17,8 +17,8 @@ class CreateProfessorsTable extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('url');
-            $table->unsignedBigInteger('user_id')->unique();
+            $table->string('url')->nullable();
+            $table->unsignedBigInteger('user_id')->nulalable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Gradebook;
 use App\Professor;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class GradebookController extends Controller
 {
@@ -49,9 +52,11 @@ class GradebookController extends Controller
             abort(400);
         }
         $gradebook = new Gradebook();
-        $professor = Professor::find($request->input('professor_id'));
-
         $gradebook->name = $request->input('name');
+
+        if($request->has('professor_id')){
+        $professor = Professor::findOrFail($request->input('professor_id'));
+
         $gradebook->professor_id = $request->input('professor_id');
         
         $gradebook->save();
@@ -59,7 +64,12 @@ class GradebookController extends Controller
         $professor->save();
 
         return $gradebook;
-    }
+
+        }
+            $gradebook->save();
+            
+            return $gradebook;
+     }
 
     /**
      * Display the specified resource.
@@ -69,6 +79,7 @@ class GradebookController extends Controller
      */
     public function show($id)
     {
+
     }
 
     /**
@@ -103,5 +114,12 @@ class GradebookController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function my_gradebook()
+    {
+        $user = JWTAuth::user();
+
+        return Professor::with('gradebook', 'students')->where('user_id', $user->id)->first();
+
     }
 }

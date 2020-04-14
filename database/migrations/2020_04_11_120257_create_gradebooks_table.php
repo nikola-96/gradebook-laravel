@@ -17,7 +17,7 @@ class CreateGradebooksTable extends Migration
             $table->id();
             $table->string('name');
             $table->unsignedBigInteger('professor_id')->nullable();
-            $table->foreign('professor_id')->references('user_id')->on('professors')->onDelete('cascade');
+            $table->foreign('professor_id')->references('id')->on('professors')->onDelete('cascade');
             $table->timestamps();
         });
     }
