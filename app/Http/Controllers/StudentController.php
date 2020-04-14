@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Student;
 use App\Professor;
-use App\Gradebook;
 
-class ProfessorController extends Controller
+class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,15 +15,7 @@ class ProfessorController extends Controller
      */
     public function index()
     {
-        $term = request()->input('term');
-
-        if ($term) {
-
-            return Professor::search($term);
-        } else {
-
-            return Professor::with('gradebook')->get();
-        }
+        //
     }
 
     /**
@@ -33,7 +25,7 @@ class ProfessorController extends Controller
      */
     public function create()
     {
-        return Gradebook::whereNull('professor_id')->get();
+        //
     }
 
     /**
@@ -44,7 +36,17 @@ class ProfessorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $student = new Student();
+        $professor = Professor::where('gradebook_id', $request->input('id'))->first();
+
+        $student->first_name = $request->input('first_name');
+        $student->last_name = $request->input('last_name');
+        $student->gradebook_id = $request->input('id');
+        $student->imageUrl = $request->input('url');
+        $student->professor_id = $professor->id;
+        $student->save();
+
+        return $student;
     }
 
     /**
@@ -55,7 +57,7 @@ class ProfessorController extends Controller
      */
     public function show($id)
     {
-        return Professor::with('students', 'gradebook')->findOrFail($id);
+        //
     }
 
     /**
