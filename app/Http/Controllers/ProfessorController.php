@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Professor;
+use App\Gradebook;
 
 class ProfessorController extends Controller
 {
@@ -33,7 +34,7 @@ class ProfessorController extends Controller
      */
     public function create()
     {
-        //
+        return Gradebook::whereNull('professor_id')->get();
     }
 
     /**

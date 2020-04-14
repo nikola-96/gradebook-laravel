@@ -22,3 +22,4 @@ Route::middleware('api')->get('/professor/{id}', 'ProfessorController@show');
 Route::middleware('api')->get('/gradebooks/create', 'GradebookController@create');
 Route::middleware('api')->post('gradebooks/store', 'GradebookController@store');
 Route::middleware(['api', 'jwt'])->get('/my-gradebook', 'GradebookController@my_gradebook');
+Route::middleware('api')->get('professors/create', 'ProfessorController@create');
