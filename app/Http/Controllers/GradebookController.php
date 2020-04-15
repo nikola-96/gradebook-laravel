@@ -89,7 +89,7 @@ class GradebookController extends Controller
                 return $gradebook;
             }
         }
-                $gradebook->isAuth = false;
+                $gradebook->isAuth = false; 
                 
             return $gradebook;
     }
@@ -125,7 +125,9 @@ class GradebookController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $gradebook = Gradebook::find($id);
+
+        $gradebook->delete();
     }
     public function my_gradebook()
     {
