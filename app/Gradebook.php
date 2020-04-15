@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Professor;
 use App\Student;
+use App\Comment;
 
 class Gradebook extends Model
 {
@@ -19,6 +20,11 @@ class Gradebook extends Model
         
         return $this->hasMany(Student::class);
     }
+    public function comments(){
+        
+        return $this->hasMany(Comment::class);
+    }
+
     public static function search($term){
 
         return self::with('professor')->where('name', 'LIKE', '%'.$term.'%')->get();

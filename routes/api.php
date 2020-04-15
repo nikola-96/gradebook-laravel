@@ -25,3 +25,6 @@ Route::middleware(['api', 'jwt'])->get('/my-gradebook', 'GradebookController@my_
 Route::middleware('api')->get('professors/create', 'ProfessorController@create');
 Route::middleware('api')->post('/gradebooks/students/store', 'StudentController@store');
 Route::middleware('api')->get('/gradebook/{id}', 'GradebookController@show');
+Route::middleware('api', 'jwt')->post('/gradebooks/comments/store', 'CommentsController@store');
+Route::middleware('api', 'jwt')->get('/gradebooks/comments/{id}', 'CommentsController@show');
+Route::middleware('api')->delete('/gradebooks/comments/{id}', 'CommentsController@destroy');
