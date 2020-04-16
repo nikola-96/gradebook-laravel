@@ -57,7 +57,7 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-        //
+        return Student::find($id);
     }
 
     /**
@@ -80,7 +80,15 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $student = Student::find($id);
+        $student->first_name = $request->input("first_name");
+        $student->last_name = $request->input("last_name");
+        $student->imageUrl = $request->input("imageUrl");
+
+        $student->save();
+
+        return $student;
+
     }
 
     /**
@@ -91,6 +99,8 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $student = Student::find($id);
+
+        $student->delete();
     }
 }

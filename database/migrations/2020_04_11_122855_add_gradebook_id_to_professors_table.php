@@ -15,7 +15,7 @@ class AddGradebookIdToProfessorsTable extends Migration
     {
         Schema::table('professors', function (Blueprint $table) {
             $table->unsignedBigInteger('gradebook_id')->nullable();
-            $table->foreign('gradebook_id')->references('id')->on('gradebooks')->onDelete('cascade');
+            $table->foreign('gradebook_id')->references('id')->on('gradebooks')->onDelete('SET NULL');
         });
     }
 

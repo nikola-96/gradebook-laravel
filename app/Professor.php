@@ -3,6 +3,7 @@
 namespace App;
 use App\Gradebook;
 use App\Student;
+use App\Url;
 use Illuminate\Database\Eloquent\Model;
 
 class Professor extends Model
@@ -17,10 +18,14 @@ class Professor extends Model
         
         return $this->hasMany(Student::class);
     }
+    public function urls(){
+        
+        return $this->hasMany(Url::class);
+    }
 
 
     public static function search($term){
 
-        return self::with('gradebook')->where('first_name', 'LIKE', '%'.$term.'%')->get();
+        return self::with('gradebook', 'urls')->where('first_name', 'LIKE', '%'.$term.'%')->get();
     }
 }

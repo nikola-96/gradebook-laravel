@@ -8,6 +8,7 @@ use App\Professor;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use App\Http\Requests\GradebookRequest;
 
 class GradebookController extends Controller
 {
@@ -46,7 +47,7 @@ class GradebookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(GradebookRequest $request)
     {
         if (!$request->has('name')) {
             abort(400);
@@ -114,7 +115,16 @@ class GradebookController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $gradebook = Gradebook::find($id);
+        
+        $gradebook->name = $request->name;
+        if($request->input('professor')){
+            $gradebook->professor_id = $request->input('professor');
+            $professor = Professor::find($request->input('professor'));
+            $professor->gradebook_id = $id;
+            $professor->save(); 
+        }
+        $gradebook->save(); 
     }
 
     /**

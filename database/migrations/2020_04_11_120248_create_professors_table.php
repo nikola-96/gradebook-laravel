@@ -18,8 +18,8 @@ class CreateProfessorsTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('url')->nullable();
-            $table->unsignedBigInteger('user_id')->nulalable();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('SET NULL');
             $table->timestamps();
         });
     }

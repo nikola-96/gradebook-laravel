@@ -29,3 +29,10 @@ Route::middleware('api', 'jwt')->post('/gradebooks/comments/store', 'CommentsCon
 Route::middleware('api', 'jwt')->get('/gradebooks/comments/{id}', 'CommentsController@show');
 Route::middleware('api')->delete('/gradebooks/comments/{id}', 'CommentsController@destroy');
 Route::middleware('api')->delete('/gradebooks/{id}', 'GradebookController@destroy');
+Route::middleware(['api', 'jwt'])->get('//gradebooks/edit', 'GradebookController@my_gradebook');
+Route::middleware('api')->delete('/gradebooks/students/{id}', 'StudentController@destroy');
+Route::middleware('api')->get('/gradebooks/student/edit/{id}', 'StudentController@show');
+Route::middleware('api')->post('/gradebooks/student/edit/{id}', 'StudentController@update');
+Route::middleware('api')->post('/gradebooks/{id}/edit', 'GradebookController@update');
+Route::middleware('api')->post('/professors/create', 'ProfessorController@store');
+
