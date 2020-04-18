@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Student;
 use App\Professor;
+use App\Http\Requests\StudentRequest;
+
 
 class StudentController extends Controller
 {
@@ -34,8 +36,9 @@ class StudentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StudentRequest $request)
     {
+        
         $student = new Student();
         $professor = Professor::where('gradebook_id', $request->input('id'))->first();
 
