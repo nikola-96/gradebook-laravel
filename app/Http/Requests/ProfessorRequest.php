@@ -26,7 +26,8 @@ class ProfessorRequest extends FormRequest
         return [
             'first_name' => 'required|max:255',
             'last_name' => 'required|max:255',
-            'imageUrl' => 'required',
+            'imageUrl.0' => 'required|url',
+            "gradebook_id"=> 'nullable'
         ];
     }
 }

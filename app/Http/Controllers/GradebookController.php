@@ -39,7 +39,7 @@ class GradebookController extends Controller
      */
     public function create()
     {
-        return Professor::whereNull('gradebook_id')->get();
+        return Professor::doesntHave('gradebook')->get();;
     }
 
     /**
@@ -144,7 +144,10 @@ class GradebookController extends Controller
     {
         $user = JWTAuth::user();
 
-        return Professor::with('gradebook', 'students')->where('user_id', $user->id)->first();
+        $professor = Professor::with('gradebook', 'students')->where('user_id', $user->id)->first();
+        $professor->gradebook->isAuth = true;
+
+        return $professor;
 
     }
 }

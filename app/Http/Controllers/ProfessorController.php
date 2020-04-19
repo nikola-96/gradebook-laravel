@@ -52,13 +52,24 @@ class ProfessorController extends Controller
      */
     public function store(ProfessorRequest $request)
     {
-
         $professor = new Professor();
         $imageUrl= new Url();
 
         $professor->first_name = $request->first_name;
         $professor->last_name = $request->last_name;
-        $professor->save();
+
+        if($request->gradebook_id){
+
+            $professor->gradebook_id = $request->gradebook_id;
+            $professor->save();
+            $gradebook = Gradebook::find($request->gradebook_id);
+            $gradebook->professor_id = $professor->id;
+            $gradebook->save();
+
+        }else{
+            $professor->save();
+        } 
+        
         $urls = array();
         $urls= $request->imageUrl;
 

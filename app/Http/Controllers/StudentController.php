@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Student;
 use App\Professor;
+use App\Gradebook;
 use App\Http\Requests\StudentRequest;
 
 
@@ -40,13 +41,13 @@ class StudentController extends Controller
     {
         
         $student = new Student();
-        $professor = Professor::where('gradebook_id', $request->input('id'))->first();
+        $gradebook = Gradebook::where('id', $request->input('id'))->first();
 
         $student->first_name = $request->input('first_name');
         $student->last_name = $request->input('last_name');
         $student->gradebook_id = $request->input('id');
-        $student->imageUrl = $request->input('url');
-        $student->professor_id = $professor->id;
+        $student->imageUrl = $request->input('imageUrl');
+        $student->professor_id = $gradebook->professor_id;
         $student->save();
 
         return $student;
