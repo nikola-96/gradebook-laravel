@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Gradebook;
 use App\Student;
+use App\Professor;
 
 class StudentTableSeeder extends Seeder
 {
@@ -13,8 +14,6 @@ class StudentTableSeeder extends Seeder
      */
     public function run()
     {
-        Gradebook::all()->each(function(App\Gradebook $gradebook) {	
-            $gradebook->students()->saveMany(factory(App\Student::class, 1)->make());
-        });
+        factory(App\Student::class, 30)->create();
     }
 }
