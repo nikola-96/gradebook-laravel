@@ -19,7 +19,7 @@ class CreateStudentsTable extends Migration
             $table->string('last_name');
             $table->string('imageUrl');
             $table->unsignedBigInteger('gradebook_id')->nullable();
-            $table->foreign('gradebook_id')->references('id')->on('gradebooks')->onDelete('SET NULL');
+            $table->foreign('gradebook_id')->references('id')->on('gradebooks')->onDelete('cascade');
             $table->timestamps();
         });
     }
